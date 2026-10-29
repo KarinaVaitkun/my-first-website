@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>мой первый сайт</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <link rel="stylesheet" href="style.css"
+    </head>
+
+    <body>
+        <header>
+            <h1> Мой первый сайт</h1>
+        </header>
+        <main>
+          <input id="nameInput" type="text" placeholder="введите ваше имя">
+          <button id="clearNameButton">очистить имя</button>
+            <nav>
+                <a class="button" href="https://google.com">Открыть google</a>
+                <a href="#about">О нас</a>
+                <a href="#">Контакты</a>
+            </nav>
+        <p id="message" class="test-text">Я учусь создавать сайты.</p>
+        <section id="about">
+             <h2>Я изучаю веб-разработку</h2>
+             <img src="https://picsum.photos/800/500" alt="Пример фотографии для моего первого сайта"
+        <p class="important">Скоро я научусь создавать настоящие сайты</p>
+        <div class="boxes">
+            <div class="blue-block">Блок 1</div>
+            <div class="blue-block">Блок 2</div>
+            <div class="special">Блок 3</div>
+            <div class="special">Блок 4</div>
+            <div class="special">Блок 5</div>
+            <div>Блок 6</div>
+            <div>Блок 7</div>
+            <div class="move">Блок 8</div>
+        </div>
+        <form id="contactForm">
+             <label for="name">Имя</label>
+        <input id="name" type="text" placeholder="Введите имя" required>
+        <p id="greeting"></p>
+
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="Введите email" required>
+
+        <label for="messageText">Сообщение</label>
+        <textarea id="messageText" rows="5" placeholder="Введите сообщение" required></textarea>
+
+        <label for="service">Услуга</label>
+
+        <select id="service">
+            <option>Создание сайта</option>
+            <option>SEO</option>
+            <option>Дизайн</option>
+            <option>Другое</option>
+        </select>
+        
+        <label>
+            <input id="consent" type="checkbox" required>
+            Я согласна на обработку данных
+        </label>
+
+        <p>Как с вами связаться?</p>
+ 
+        <label>
+            <input type="radio" name="contact" value="email">
+            Email
+        </label>
+
+        <label>
+            <input type="radio" name="contact" value="phone">
+            Телефон
+        </label>
+
+        <button type="submit">Отправить</button>
+        <p id="formMessage"></p>
+        <h2>наши услуги и цены</h2>
+        <button type="button" id="sortPriceButton">сначала дорогие</button>
+        <div id="servicesList"></div>
+        <button type="button" id="toggleServicesButton">скрыть услуги</button>
+        <p id="serviceCount"></p>
+        <button id="helloButton" type="button">Нажми меня</button>
+        </form>
+        </main>
+        <footer>
+            <p> 2026 Мой первый сайт</p>
+        </footer>
+
+        <script>
+            let count = 0;
+
+            let services = ["создание сайта", "SEO", "дизайн", "Поддержка сайта"];
+
+            let client = {
+                name: "Анна",
+                email: "anna@example.com",
+                service: "SEO"
+            };
+
+            let clients = [
+                {
+                    name: "анна",
+                    service: "seo"
+                },
+                {
+                    name: "мария",
+                    service: "создание сайта"
+                }
+            ];
+
+            for (let i = 0; i < clients.length; i++) {
+                console.log(clients[i].name + "-" + clients[i].service);
+            }
+
+            let newClient = {
+                name: "ольга",
+                service: "дизайн"
+            }
+
+            delete newClient.service;
+
+            console.log(newClient);
+
+            clients.push(newClient);
+
+            console.log(clients);
+
+            console.log(newClient.name);
+
+            client.service = "создание сайта";
+            client.phone = "+37060000000";
+
+            console.log(client.phone);
+
+            let servicesList = document.getElementById("servicesList");
+
+            let nameInput = document.getElementById("name");
+            let emailInput = document.getElementById("email");
+            let messageInput = document.getElementById("messageText");
+            let serviceInput = document.getElementById("service");
+            let consentInput = document.getElementById("consent");
+            let greeting = document.getElementById("greeting");
+            let contactForm = document.getElementById("contactForm");
+            let formMessage = document.getElementById("formMessage");
+
+            contactForm.addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                if (nameInput.value === "") {
+                    formMessage.textContent = "пожалуйста введите имя";
+                    return;
+                }
+
+                if (emailInput.value === "") {
+                    formMessage.textContent = "пожалуйста введите email.";
+                    return;
+                }
+
+                if (!emailInput.value.includes("@")) {
+                    formMessage.textContent = "введите корректный email.";
+                    return;
+                }
+
+                if (messageInput.value === "") {
+                    formMessage.textContent = "пожалуйста напишите сообщение";
+                    return;
+                }
+
+                if (messageInput.value.trim().length < 10) {
+                  formMessage.textContent = "сообщение должно содержать 10 символов";
+                  return;
+                }
+
+                if (!consentInput.checked) {
+                    formMessage.textContent = "пожалуйста подтвердите согласие";
+                    return;
+                }
+
+                formMessage.textContent = "спасибо!форма заполнена правильно! вы выбрали услугу:" + serviceInput.value;
+                contactForm.reset();
+            });
+            
+            for (let i =0; i < services.length; i++) {
+                console.log(services[i]);
+            }
+
+          function changeMessage (newText) {
+            let message = document.getElementById("message");
+            message.textContent = newText;
+          }
+          
+          document.getElementById("helloButton") .addEventListener("click", function() {
+            servicesList.innerHTML = "";
+
+            servicesList.innerHTML = "<ul>";
+
+            for (let i = 0; i < services.length; i++) {
+                servicesList.innerHTML += "<li>" + services[i] + "</li>";
+            }
+
+            servicesList.innerHTML += "</ul>";
+          });
+
+          nameInput.addEventListener("input", function() {
+            greeting.textContent = "привет, " + nameInput.value + "!";
+          });
+
+          let newElement = document.createElement("p");
+
+          newElement.textContent = "этот текст создан JavaScript";
+
+          newElement.classList.add("important");
+
+          newElement.setAttribute("title", "новая подсказка!");
+
+          document.body.appendChild(newElement);
+
+          let firstParagraph = document.querySelector("p");
+
+          firstParagraph.textContent = "текст изменен через querySelector!";
+
+          let specialElements = document.querySelectorAll(".special");
+          console.log(specialElements);
+
+          console.log(specialElements[0].textContent);
+
+          console.log(specialElements.length);
+
+          specialElements.forEach(function(element) {
+            element.textContent = "я изучаю JavaScript!";
+          });
+
+          specialElements[0].remove();
+
+          let newBox = document.createElement("div");
+          newBox.textContent = "новый блок добавлен!";
+          document.body.appendChild(newBox);
+
+          newBox.classList.add("special");
+
+          newBox.addEventListener("click", function() {
+            newBox.classList.toggle("special");
+
+            if (newBox.classList.contains("special")) {
+                console.log("блок желтый!");
+            } else {
+                console.log("у блока обычный цвет.");
+            }
+            });
+        
+          console.log(newBox.classList.contains("special"));
+
+          let foundService = services.find(function(service) {
+            return service.includes("сайт");
+          });
+
+          console.log(foundService);
+
+          let serviceLabels = services.map(function(service) {
+            return "услуга" + service;
+          });
+
+          console.log(serviceLabels);
+
+          let websiteServices = services.filter(function(service) {
+            return service.includes("сайт");
+          });
+
+          console.log(websiteServices);
+
+          console.log(services.length);
+
+          let websiteCount = services.filter(function(service) {
+            return service.includes("сайт");
+          });
+
+          console.log(websiteCount);
+
+          services.forEach(function(service) {
+            console.log("наша услуга: " + service);
+          });
+
+          let sortedServices = [...services].sort();
+          console.log(sortedServices);
+
+          console.log(services.includes("фотография"));
+
+          console.log(services.includes("SEO"));
+
+          services.push("фотография");
+
+          console.log(services.includes("фотография"));
+          console.log(services.length);
+
+          services.pop();
+
+          console.log(services);
+          console.log(services.length);
+
+          services.splice(1, 1);
+          console.log(services);
+
+          console.log(services.indexOf("фотография"));
+
+          console.log(services.indexOf("дизайн"));
+
+          if (services.includes("SEO")) {
+            console.log("да мы предоставляем SEO");
+          } else {
+            console.log("такой услуги пока нет");
+          }
+           
+          services.push("SEO");
+
+          if (services.includes("SEO")) {
+            console.log("SEO снова доступна");
+          }
+
+          let servicePrices = [
+            {name: "создание сайта", price: 500},
+            {name:"SEO", price: 150},
+            {name: "дизайн", price: 200}
+          ];
+
+          let expensiveService = servicePrices.find(function(service) {
+            return service.price > 180;
+          });
+
+          console.log(expensiveService);
+
+          let premiumServices = servicePrices.filter(function(service) {
+            return service.price > 180;
+          });
+
+          console.log(premiumServices);
+
+          let serviceNames = servicePrices.map(function(service) {
+            return service.name;
+          });
+
+          console.log(serviceNames);
+
+          let totalPrice = servicePrices.reduce(function(total, service) {
+            return total + service.price;
+          }, 0);
+
+          console.log(totalPrice);
+
+          let expensiveServices = servicePrices.filter(function(service) {
+            return service.price > 180;
+          });
+
+          let expensiveNames = expensiveServices.map(function(service) {
+            return service.name;
+          });
+
+          console.log(expensiveNames);
+
+          let hasEpensiveService = servicePrices.some(function(service) {
+            return service.price > 400;
+          });
+
+          console.log(hasEpensiveService);
+
+          let allServicesExpensive = servicePrices.every(function(service) {
+            return service.price > 100;
+          });
+
+          console.log(allServicesExpensive);
+
+          let hasFreeService = servicePrices.some(function(service) {
+            return service.price === 0;
+          });
+
+          console.log(hasFreeService);
+
+          let cheapestService = servicePrices.reduce(function(cheapest, service) {
+            if (service.price < cheapest.price) {
+                return service;
+            }
+
+            return cheapest;
+          });
+
+          console.log(cheapestService);
+
+          let mostExpensiveService = servicePrices.reduce(function(mostExpensive, service) {
+            if (service.price > mostExpensive.price) {
+                return service;
+            }
+
+            return mostExpensive;
+          });
+
+          console.log(mostExpensiveService);
+
+          let affordableServices = servicePrices.filter (function(service) {
+            return service.price <= 200;
+          });
+
+          console.log(affordableServices);
+
+          let affordableNames = affordableServices.map(function(service) {
+            return service.name;
+          });
+
+          console.log(affordableNames);
+
+          let affordableDetail = affordableServices.map(function(service) {
+            return service.name + " - " + service.price + " €";
+          });
+
+          console.log(affordableDetail);
+
+          let priceList = document.getElementById("servicesList");
+
+          priceList.textContent = affordableDetail.join("\n");
+
+          let serviceCount = affordableServices.length;
+
+          console.log("количество доступных услуг: " + serviceCount);
+
+          let serviceCountElement = document.getElementById("serviceCount");
+
+          serviceCountElement.textContent = "количество услуг: " + serviceCount;
+
+          if (serviceCount > 0) {
+            serviceCountElement.textContent += " - услуги доступны";
+          } else {
+            serviceCountElement.textContent = "пока нет доступных услуг";
+          }
+
+          let servicesByPrice = [...servicePrices].sort(function(a, b) {
+            return a.price - b.price;
+          });
+
+          console.log(servicesByPrice);
+
+          servicesByPrice.forEach(function(service) {
+            console.log(service.name + " - " + service.price + " €");
+          });
+
+          let sortedPriceList = document.getElementById("servicesList");
+
+          sortedPriceList.textContent = servicesByPrice.map(function(service) {
+            return service.name + " - " + service.price + " €";
+          }).join("\n");
+
+
+          let sortAscending = false;
+
+          let sortButton = document.getElementById("sortPriceButton");
+
+          sortButton.addEventListener("click", function() {
+            console.log("кнопка нажата");
+
+            servicesByPrice.sort(function(a, b) {
+              return sortAscending ? a.price - b.price : b.price - a.price;
+            });
+
+            sortedPriceList.textContent = servicesByPrice.map(function(service) {
+              return service.name + " - " + service.price + " €";
+            }).join("\n");
+
+            sortAscending = !sortAscending;
+
+            if (sortAscending) {
+            sortButton.textContent = "сначала дешевые";
+          } else {
+            sortButton.textContent = "сначала дорогие";
+          }
+          });
+
+          let toggleServicesButton = document.getElementById("toggleServicesButton");
+          priceList = document.getElementById("servicesList");
+
+          toggleServicesButton.addEventListener("click", function() {
+            priceList.classList.toggle("hidden");
+
+            if (priceList.classList.contains("hidden")) {
+              toggleServicesButton.textContent = "показать услуги";
+            } else {
+              toggleServicesButton.textContent = "скрыть услуги";
+            }
+          });
+
+          let addPrices = (a, b) => a + b;
+
+          console.log(addPrices(150, 200));
+
+          let serviceNamesArrow = servicePrices.map(service => service.name);
+
+          console.log(serviceNamesArrow);
+
+          let cheapServices = servicePrices.filter(service => service.price <= 200);
+
+          console.log(cheapServices);
+
+          let totalServicesPrice = servicePrices.reduce(
+            (total, service) => total + service.price,
+            0
+          );
+
+          console.log(totalServicesPrice);
+
+          let serviceLabel = `${servicePrices[0].name} - ${servicePrices[0].price} €`;
+
+          console.log(serviceLabel);
+
+          let { name, price } = service;
+
+          console.log(name);
+          console.log(price);
+
+          let seoService = {
+            name: "seo",
+            price: 150
+          };
+
+          let { name: seoName, price: seoPrice } = seoService;
+
+          console.log(seoName);
+          console.log(seoPrice);
+
+          let serviceDetails = servicePrices.map(({ name, price }) => {
+            return `${name} - ${price} €`;
+          });
+
+          console.log(serviceDetails);
+
+          let mostExpensive = servicePrices.reduce((current, service) => 
+          service.price >current.price ? service : current
+        );
+
+        let { name: expensiveName, price: expensivePrice } = mostExpensive;
+
+        console.log(`${expensiveName} - ${expensivePrice} €`);
+
+        let copiedServices = [...servicePrices];
+
+        copiedServices.push({
+          name: "фотография",
+          price: 100
+        });
+
+        console.log("исходный список:", servicePrices);
+        console.log("копия списка:", copiedServices);
+
+        let seoServiceUpdated = {
+          ...seoService,
+          price: 180
+        };
+
+        console.log("старая цена:", seoService.price);
+        console.log("новая цена:", seoServiceUpdated.price);
+
+        function calculateTotal(...prices) {
+          return prices.reduce((total, price) => total + price, 0);
+        }
+
+        console.log(calculateTotal(150, 200, 500));
+
+        let servicePrice = 0;
+
+        let finalPrice = servicePrice ?? 100;
+
+        console.log(finalPrice);
+
+        let priceWithOr = 0 || 100;
+        let priceWithNullish = 0 ?? 100;
+
+        console.log(priceWithOr);
+        console.log(priceWithNullish);
+
+        let clientInfo = {
+          name: "anna"
+        };
+
+        console.log(clientInfo.name);
+        console.log(clientInfo.address?.city);
+
+        let clientContact = {
+          name: "anna",
+          email: "example@anna.com"
+        };
+
+        console.log(clientContact.phone?.number ?? "телефон не указан");
+
+        </script>
+        <h2>наши пользователи</h2>
+        <div id="users"></div>
+        <p id="errorMessage"></p>
+        <button id="retryButton">загрузить еще раз</button>
+        <hr>
+        <h2>мои задачи</h2>
+        <input id="taskInput" type="text" placeholder="введите задачу">
+        <button id="addTaskButton">добавить задачу</button>
+        <div id="taskList"></div>
+        <form id="practiceForm">
+          <input id="userName" type="text" placeholder="ваше имя" autocomplete="off">
+          <button type="submit">отправить</button>
+        </form>
+
+        <p id="formMessage"></p>
+
+        <script type="module" src="script.js"></script>
+    </body>
+</html>
