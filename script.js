@@ -30,7 +30,7 @@ let rememberedName = localStorage.getItem("userName");
 if (rememberedName) {
     pageTitle.textContent = "с возвращением, " + rememberedName + "!";
 } else {
-    pageTitle.textContent = "добро пожаловать на мой сайт!";
+    pageTitle.textContent = "Мой первый опубликованный сайт";
 }
 
 let greeting = document.querySelector("#greeting");
